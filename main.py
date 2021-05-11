@@ -1,5 +1,5 @@
 """
-Fighting_Game
+Fight
 
 Description:
 """
@@ -9,14 +9,13 @@ import random
 window = tsapp.GraphicsWindow()
 bg1 =  tsapp.Sprite("FantasyPlains.jpg",0,0)
 player = tsapp.Sprite("Boulder.png",50,200)
-e1 = tsapp.Sprite("SlimeGreen.png",700,200)
+e1 = tsapp.Sprite("SlimeGreen.png",700,225)
 e1.scale = 0.5
 
 window.add_object(bg1)
-window.add_object(e1)
 window.add_object(player)
-
-
+window.add_object(e1)
+slime_green = True
 
 kicked = tsapp.get_program_duration()
 while window.is_running:
@@ -51,4 +50,15 @@ while window.is_running:
     elif now - kicked >= 300 and now - kicked <= 320:
         player.image = "Boulder.png"
         
+    if e1.center_x > player.center_x and not player.center_x - e1.center_x > 100:
+        e1.flip_x = True
+        e1.x_speed = -70
+    elif e1.center_x < player.center_x and not player.center_x - e1.center_x < 100:
+        e1.flip_x = False
+        e1.x_speed = 70
+    elif player.center_x - e1.center_x < 100:
+        e1.flip_x = False
+        e1.x_speed = 0
+        
+
     window.finish_frame()
