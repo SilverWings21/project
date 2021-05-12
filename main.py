@@ -1,34 +1,43 @@
 """
 Fighting_Game
-
 Description:
 """
 import tsapp
 import random
-
+import pygame
 player_hp = 100
 e1_hp = 60
 
 window = tsapp.GraphicsWindow()
 bg1 =  tsapp.Sprite("FantasyPlains.jpg",0,0)
 player = tsapp.Sprite("Boulder.png",50,200)
-e1 = tsapp.Sprite("SlimeGreen.png",700,200)
+
+player_hb = tsapp.Sprite("DialogueBoxBlue.png",-400,-100)
+player_h = tsapp.TextLabel("Acme-Regular.ttf",25,25,25,150,player_hp,tsapp.BLACK)
+e1 = tsapp.Sprite("SlimeGreenIdleSheet.png",700,200)
 e_hb = tsapp.Sprite("DialogueBoxBlue.png",e1.x,e1.y-25)
 e_h = tsapp.TextLabel("Acme-Regular.ttf",15,e_hb.x+20,e_hb.y - 10,150,e1_hp,tsapp.BLACK)
 e_hb.scale = 0.1
+player_hb.scale = 0.2
 e1.scale = 0.5
+e1.image_animation_rate = 20
 
 window.add_object(bg1)
 window.add_object(e1)
 window.add_object(e_hb)
 window.add_object(e_h)
 window.add_object(player)
+window.add_object(player_hb)
+window.add_object(player_h)
 
 
-
+hit = tsapp.get_program_duration()
 kicked = tsapp.get_program_duration()
 while window.is_running:
+    clock = pygame.time.Clock()
+    clock.tick(20)
     now = tsapp.get_program_duration()
+    player_h.text = player_hp
     e_h.text = e1_hp
     e_h.x = e1.x+20
     e_h.y = e1.y - 10
@@ -67,13 +76,23 @@ while window.is_running:
         
     if e1.center_x > player.center_x and not player.center_x - e1.center_x > 100:
         e1.flip_x = True
+        e1.image = "SlimeGreenHopSheet.png"
+        e1.image_animation_rate = 20
         e1.x_speed = -70
+        window.finish_frame()
     elif e1.center_x < player.center_x and not player.center_x - e1.center_x < 100:
         e1.flip_x = False
+        e1.image = "SlimeGreenHopSheet.png"
+        e1.image_animation_rate = 20
         e1.x_speed = 70
+        window.finish_frame()
     elif player.center_x - e1.center_x < 100:
-        e1.flip_x = False
+        e1.image = "SlimeGreenIdleSheet.png"
+        e1.image_animation_rate = 20
         e1.x_speed = 0
+    if player.is_colliding_rect(e1) and now - hit >= 1000:
+        hit = tsapp.get_program_duration()
+        player_hp -= 10
         
 
     window.finish_frame()
