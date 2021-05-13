@@ -11,14 +11,17 @@ e1_hp = 60
 window = tsapp.GraphicsWindow()
 bg1 =  tsapp.Sprite("FantasyPlains.jpg",0,0)
 bg2 =  tsapp.Sprite("NightSky.jpg",0,0)
+bg3 =  tsapp.Sprite("Stage.png",0,0)
 player = tsapp.Sprite("Boulder.png",50,200)
 
 player_hb = tsapp.Sprite("DialogueBoxBlue.png",-400,-100)
+trophy = tsapp.Sprite("Trophy.png", 400, 275)
 player_h = tsapp.TextLabel("Acme-Regular.ttf",25,25,25,150,player_hp,tsapp.BLACK)
 e1 = tsapp.Sprite("SlimeGreenIdleSheet.png",700,200)
 e_hb = tsapp.Sprite("DialogueBoxBlue.png",e1.x,e1.y-25)
 e_h = tsapp.TextLabel("Acme-Regular.ttf",15,e_hb.x+20,e_hb.y - 10,150,e1_hp,tsapp.BLACK)
 death_text = tsapp.TextLabel("Flavors-Regular.ttf", 350, 100, 250, window.width, "GAME OVER", tsapp.RED)
+win = tsapp.TextLabel("Rye-Regular.ttf", 100, 275, 225, window.width, "YOU WIN", tsapp.YELLOW)
 e_hb.scale = 0.1
 player_hb.scale = 0.2
 e1.scale = 0.5
@@ -117,6 +120,8 @@ while window.is_running:
         window.move_to_back(e1)
         window.move_to_back(e_hb)
         window.move_to_back(e_h)
-    
+        window.add_object(bg3)
+        window.add_object(trophy)
+        window.add_object(win)    
 
     window.finish_frame()
