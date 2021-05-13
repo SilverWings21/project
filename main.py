@@ -10,6 +10,7 @@ e1_hp = 60
 
 window = tsapp.GraphicsWindow()
 bg1 =  tsapp.Sprite("FantasyPlains.jpg",0,0)
+bg2 =  tsapp.Sprite("NightSky.jpg",0,0)
 player = tsapp.Sprite("Boulder.png",50,200)
 
 player_hb = tsapp.Sprite("DialogueBoxBlue.png",-400,-100)
@@ -17,6 +18,7 @@ player_h = tsapp.TextLabel("Acme-Regular.ttf",25,25,25,150,player_hp,tsapp.BLACK
 e1 = tsapp.Sprite("SlimeGreenIdleSheet.png",700,200)
 e_hb = tsapp.Sprite("DialogueBoxBlue.png",e1.x,e1.y-25)
 e_h = tsapp.TextLabel("Acme-Regular.ttf",15,e_hb.x+20,e_hb.y - 10,150,e1_hp,tsapp.BLACK)
+death_text = tsapp.TextLabel("Flavors-Regular.ttf", 350, 100, 250, window.width, "GAME OVER", tsapp.RED)
 e_hb.scale = 0.1
 player_hb.scale = 0.2
 e1.scale = 0.5
@@ -44,6 +46,10 @@ while window.is_running:
     e_h.y = e1.y - 10
     e_hb.x = e1.x
     e_hb.y = e1.y -25
+    if player_hp == 0:
+        window.add_object(bg2)
+        window.add_object(death_text)
+
     if tsapp.is_key_down(tsapp.K_UP) and now - kicked >= 300 and player.y == 200:
         player_jump = 0
         print(player_jump)
