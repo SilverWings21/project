@@ -52,7 +52,6 @@ while window.is_running:
 
     if tsapp.is_key_down(tsapp.K_UP) and now - kicked >= 300 and player.y == 200:
         player_jump = 0
-        print(player_jump)
     if player_jump <= 10:
         player.y_speed -= 400
         player_jump += 1
