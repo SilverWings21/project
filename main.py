@@ -38,11 +38,25 @@ while window.is_running:
     clock.tick(20)
     now = tsapp.get_program_duration()
     player_h.text = player_hp
+    player_jump = 11
     e_h.text = e1_hp
     e_h.x = e1.x+20
     e_h.y = e1.y - 10
     e_hb.x = e1.x
     e_hb.y = e1.y -25
+    if tsapp.is_key_down(tsapp.K_UP) and now - kicked >= 300:
+        player_jump = 0
+    if player_jump <= 10:
+        player.y_speed -= 300
+        player_jump += 1
+    elif player_jump > 10 and player.y < 200:
+        player.y_speed = 200
+    elif player.y > 200:
+        player.y_speed = 0
+        player.y = 200
+    if player.y == 200 and player_jump > 10:
+        player.y_speed = 0
+        
     if tsapp.is_key_down(tsapp.K_RIGHT) and now - kicked >= 300:
         player.image = "BoulderRunSheet.png"
         player.image_animation_rate = 20
