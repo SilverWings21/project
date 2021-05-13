@@ -105,9 +105,13 @@ while window.is_running:
         e1.image = "SlimeGreenIdleSheet.png"
         e1.image_animation_rate = 20
         e1.x_speed = 0
-    if player.is_colliding_rect(e1) and now - hit >= 1000:
+    if player.is_colliding_rect(e1) and now - hit >= 1000 and e1_hp > 0:
         hit = tsapp.get_program_duration()
         player_hp -= 10
-        
+    if e1_hp <= 0:
+        window.move_to_back(e1)
+        window.move_to_back(e_hb)
+        window.move_to_back(e_h)
+    
 
     window.finish_frame()
