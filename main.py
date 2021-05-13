@@ -44,14 +44,15 @@ while window.is_running:
     e_h.y = e1.y - 10
     e_hb.x = e1.x
     e_hb.y = e1.y -25
-    if tsapp.is_key_down(tsapp.K_UP) and now - kicked >= 300:
+    if tsapp.is_key_down(tsapp.K_UP) and now - kicked >= 300 and player.y == 200:
         player_jump = 0
+        print(player_jump)
     if player_jump <= 10:
-        player.y_speed -= 300
+        player.y_speed -= 400
         player_jump += 1
-    elif player_jump > 10 and player.y < 200:
-        player.y_speed = 200
-    elif player.y > 200:
+    if player_jump > 10 and player.y < 200:
+        player.y_speed += 100
+    if player.y > 200:
         player.y_speed = 0
         player.y = 200
     if player.y == 200 and player_jump > 10:
@@ -60,14 +61,14 @@ while window.is_running:
     if tsapp.is_key_down(tsapp.K_RIGHT) and now - kicked >= 300:
         player.image = "BoulderRunSheet.png"
         player.image_animation_rate = 20
-        player.x_speed = 150
+        player.x_speed = 200
         player.scale = 0.8
         player.flip_x = False
         window.finish_frame()
     elif tsapp.is_key_down(tsapp.K_LEFT) and now - kicked >= 300:
         player.image = "BoulderRunSheet.png"
         player.image_animation_rate = 20
-        player.x_speed = -150
+        player.x_speed = -200
         player.scale = 0.8
         player.flip_x = True
         window.finish_frame()
